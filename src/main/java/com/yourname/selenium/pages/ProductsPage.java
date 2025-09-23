@@ -36,7 +36,7 @@ public class ProductsPage {
 
     // Optional: Add meaningful check/assertion here
     public boolean isTitleVisible() {
-        new WebDriverWait(driver, Duration.ofSeconds(5))  // wait up to 5 seconds
+        new WebDriverWait(driver, Duration.ofSeconds(5))
             .until(ExpectedConditions.visibilityOf(title));
 
         System.out.println("Title is visible: " + title.getText());
@@ -51,7 +51,7 @@ public class ProductsPage {
     }
 
     public boolean isRemoveButtonVisible() {
-        new WebDriverWait(driver, Duration.ofSeconds(5))  // wait up to 5 seconds
+        new WebDriverWait(driver, Duration.ofSeconds(5))
             .until(ExpectedConditions.visibilityOf(removeButton));
 
         System.out.println("Remove button is visible: " + removeButton.getText());
@@ -59,7 +59,7 @@ public class ProductsPage {
     }
 
     public boolean isCartBadgeVisible() {
-        new WebDriverWait(driver, Duration.ofSeconds(5))  // wait up to 5 seconds
+        new WebDriverWait(driver, Duration.ofSeconds(5))
             .until(ExpectedConditions.visibilityOf(cartBadge));
 
         System.out.println("Cart badge is visible: " + cartBadge.getText());
@@ -67,7 +67,7 @@ public class ProductsPage {
     }
 
     public void waitFor(WebElement element) {
-        new WebDriverWait(driver, Duration.ofSeconds(10));  // wait up to 5 seconds
+        new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public String getProductText() {

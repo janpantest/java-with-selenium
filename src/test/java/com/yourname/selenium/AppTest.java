@@ -29,11 +29,12 @@ public class AppTest {
         String url = "https://www.saucedemo.com";
 
         // System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
-        WebDriverManager.chromedriver().setup(); // Using WebDriverManager to manage driver binaries
+        WebDriverManager.chromedriver().setup();
 
         // Create a new instance of Chrome driver
-        driver = new FirefoxDriver();
+        // driver = new FirefoxDriver();
         // driver = new ChromeDriver();
+        driver = new EdgeDriver();
         driver.manage().window().maximize();
         driver.get(url);
 

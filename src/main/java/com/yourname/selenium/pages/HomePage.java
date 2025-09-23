@@ -31,7 +31,6 @@ public class HomePage {
         loginButton.click();
     }
 
-    // Optional: Add meaningful check/assertion here
     public boolean isLoginFormVisible() {
         System.out.println("This is outpout : " + usernameInput.isDisplayed());
         return usernameInput.isDisplayed() && passwordInput.isDisplayed() && loginButton.isDisplayed();
