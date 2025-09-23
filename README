@@ -1,0 +1,8 @@
+## Build app
+`mvn clean install`
+
+## Create .env file
+`copy paste .env_example and set variables`
+
+## Run test
+`mvn test`
