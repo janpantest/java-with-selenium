@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
 import java.util.List;
+import java.util.ArrayList;;
 
 public class ProductsPage {
     WebDriver driver;
@@ -39,6 +40,9 @@ public class ProductsPage {
 
     @FindBy(css = "a#logout_sidebar_link")
     WebElement logoutButton;
+
+    @FindBy(css = "a.bm-item.menu-item")
+    List <WebElement> menuItem;
 
     // Optional: Add meaningful check/assertion here
     public boolean isTitleVisible() {
@@ -93,6 +97,16 @@ public class ProductsPage {
 
     public void logout() {
         hamburgerMenu.click();
+        // System.out.println(getTexts());
         logoutButton.click();
+    }
+
+    public List<String> getTexts() {
+        List <String> texts = new ArrayList<>();
+        for (WebElement item : menuItem) {
+            // System.out.println(item.getText());
+            texts.add(item.getText());
+        }
+        return texts;
     }
 }
