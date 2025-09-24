@@ -59,7 +59,7 @@ public class UpdatedTest {
         assertTrue("Title of product should be visible", productsPage.isTitleVisible());
         productsPage.logout();
 
-        homePage.isLoginFormVisible();
+        assertTrue("Login form should be visible", homePage.isLoginFormVisible());
     }
 
     @After
