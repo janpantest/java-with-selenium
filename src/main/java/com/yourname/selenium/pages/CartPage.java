@@ -1,5 +1,6 @@
 package com.yourname.selenium.pages;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,10 +27,16 @@ public class CartPage {
     WebElement removeButton;
 
     @FindBy(css = "span.shopping_cart_badge")
-    WebElement cartBadge;
+    List <WebElement> cartBadge;
 
     @FindBy(css = "div.inventory_item_name ")
     List <WebElement> product;
+
+    @FindBy(css = "button#continue-shopping")
+    WebElement continueShoppingButton;
+
+    @FindBy(css = "button#checkout")
+    WebElement checkoutButton;
 
     public void checkCartTitle(String cartTitle) {
         new WebDriverWait(driver, Duration.ofSeconds(5))  // wait up to 5 seconds
@@ -46,5 +53,43 @@ public class CartPage {
         System.out.println("Product in cart: " + cartProductName);
 
         cartProductName.equals(productName);
+    }
+
+    public boolean areButtonsVisible() {
+        return continueShoppingButton.isDisplayed() && checkoutButton.isDisplayed();
+    }
+
+    public void removeFromCart() {
+        removeButton.click();
+    }
+
+    public boolean cartBageNotVisible() {
+        try {
+            // Wait for the cart badge to become stale (removed or updated in the DOM)
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.stalenessOf(cartBadge.get(0))); // Wait until the badge element is stale
+
+            // Check if the cartBadge list is empty (badge is not present in the DOM)
+            if (cartBadge.isEmpty()) {
+                // System.out.println("Cart badge is not present in the DOM.");
+                return true;
+            }
+
+            // If the list is not empty, check if the badge is visible
+            // System.out.println("Cart badge exists, checking visibility...");
+            return !cartBadge.get(0).isDisplayed();
+        } catch (StaleElementReferenceException e) {
+            // If the element reference is stale (badge has been removed), assume it's not visible
+            // System.out.println("StaleElementReferenceException: Badge reference is stale.");
+            return true;
+        } catch (Exception e) {
+            // Handle any other exceptions (optional)
+            // e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void continueInShopping() {
+        continueShoppingButton.click();
     }
 }

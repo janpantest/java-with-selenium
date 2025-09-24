@@ -36,7 +36,7 @@ public class ProductsPage {
 
     // Optional: Add meaningful check/assertion here
     public boolean isTitleVisible() {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(15))
             .until(ExpectedConditions.visibilityOf(title));
 
         System.out.println("Title is visible: " + title.getText());

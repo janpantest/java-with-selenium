@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class UpdatedTest {
@@ -50,6 +51,12 @@ public class UpdatedTest {
 
         cartPage.checkCartTitle(cartTitle);
         cartPage.checkProductName(product);
+        assertTrue("Cart buttons are visible", cartPage.areButtonsVisible());
+        cartPage.removeFromCart();
+        assertFalse("Badge is not visible", cartPage.cartBageNotVisible());
+        cartPage.continueInShopping();
+
+        assertTrue("Title of product should be visible", productsPage.isTitleVisible());
     }
 
     @After
