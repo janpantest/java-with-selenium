@@ -34,6 +34,12 @@ public class ProductsPage {
     @FindBy(css = "div.inventory_item_name ")
     List <WebElement> product;
 
+    @FindBy(css = "button#react-burger-menu-btn")
+    WebElement hamburgerMenu;
+
+    @FindBy(css = "a#logout_sidebar_link")
+    WebElement logoutButton;
+
     // Optional: Add meaningful check/assertion here
     public boolean isTitleVisible() {
         new WebDriverWait(driver, Duration.ofSeconds(15))
@@ -83,5 +89,10 @@ public class ProductsPage {
 
     public void goToCart() {
         cartBadge.click();
+    }
+
+    public void logout() {
+        hamburgerMenu.click();
+        logoutButton.click();
     }
 }

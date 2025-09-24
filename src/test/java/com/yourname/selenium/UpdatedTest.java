@@ -57,6 +57,9 @@ public class UpdatedTest {
         cartPage.continueInShopping();
 
         assertTrue("Title of product should be visible", productsPage.isTitleVisible());
+        productsPage.logout();
+
+        homePage.isLoginFormVisible();
     }
 
     @After
