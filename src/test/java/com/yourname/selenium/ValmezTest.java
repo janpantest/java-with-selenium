@@ -1,8 +1,7 @@
 package com.yourname.selenium;
 
-import com.yourname.selenium.pages.CartPage;
-import com.yourname.selenium.pages.HomePage;
-import com.yourname.selenium.pages.ProductsPage;
+import com.yourname.selenium.pages.ValmezHome;
+import com.yourname.selenium.pages.ValmezMesto;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -15,17 +14,18 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import static org.junit.Assert.assertTrue;
 
-public class AppTest {
+public class ValmezTest {
 
     WebDriver driver;
     String username;
     String password;
     String baseUrl;
-    String cartTitle;
+    String headerTitle;
+    String menuLinkMesto;
 
     @Before
     public void setUp() {
-        String url = "https://www.saucedemo.com";
+        String url = "https://www.valasskemezirici.cz";
 
         // System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
         WebDriverManager.chromedriver().setup();
@@ -41,30 +41,21 @@ public class AppTest {
         Dotenv dotenv = Dotenv.configure().load(); 
 
         baseUrl = dotenv.get("BASE_URL");
-        username = dotenv.get("USER_NAME");
-        password = dotenv.get("PASSWORD");
-        cartTitle = "Your Cart";
+        headerTitle = "Město a úřad";
+        menuLinkMesto = "Vedení města";
     }
 
     @Test
     public void testLoginWorkflow() {
-        HomePage homePage = new HomePage(driver);
-        ProductsPage productsPage = new ProductsPage(driver);
-        CartPage cartPage = new CartPage(driver);
+        ValmezHome valmezHome = new ValmezHome(driver);
+        ValmezMesto valmezMesto = new ValmezMesto(driver);
 
-        // Check if login form is visible
-        assertTrue("Login form should be visible", homePage.isLoginFormVisible());
-        homePage.login(username, password);
+        assertTrue("Login form should be visible", valmezHome.checkLogo());
+        valmezHome.clickMenuLink(headerTitle);
 
-        assertTrue("Title of product should be visible", productsPage.isTitleVisible());
-        productsPage.addFirstProductToBasket();
-        productsPage.isRemoveButtonVisible();
-        assertTrue("Remove button should be visible", productsPage.isCartBadgeVisible());
-        String product = productsPage.getProductText();
-        productsPage.goToCart();
+        valmezMesto.checkHeader(headerTitle);
+        valmezMesto.clickMenuLink(menuLinkMesto);
 
-        cartPage.checkCartTitle(cartTitle);
-        cartPage.checkProductName(product);
     }
 
     @After

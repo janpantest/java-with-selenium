@@ -6,9 +6,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
-import java.util.ArrayList;;
+import java.util.ArrayList;
 
 public class ProductsPage {
     WebDriver driver;
@@ -84,7 +88,15 @@ public class ProductsPage {
         if (product != null && product.size() > 0) {
             System.out.println("First product text: " + product.get(0).getText());
             String firstProductText = product.get(0).getText();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("outputProduct.txt", true))) {
+            writer.write(firstProductText);  // Write the text to the file
+            writer.newLine();                // Add a newline after writing the product text
+        } catch (IOException e) {
+            e.printStackTrace();  // Handle any IOExceptions that might occur while writing
+        }
+
             return firstProductText;
+
         } else {
         System.out.println("No products found.");
         return "";
@@ -108,5 +120,21 @@ public class ProductsPage {
             texts.add(item.getText());
         }
         return texts;
+    }
+
+    public void clickSpecificButton(String text) {
+        hamburgerMenu.click();
+        for (WebElement button : menuItem) {
+            // System.out.println(item.getText());
+            if (button.getText().equals(text)) {
+                button.click();
+            }
+        }
+    }
+
+    public void clickOnButtonFromMenu(String text) {
+        hamburgerMenu.click();
+        clickSpecificButton(text);
+        logoutButton.click();
     }
 }
