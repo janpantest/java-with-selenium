@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
 import java.util.List;
+import java.util.ArrayList;;
 
 public class ProductsPage {
     WebDriver driver;
@@ -34,9 +35,18 @@ public class ProductsPage {
     @FindBy(css = "div.inventory_item_name ")
     List <WebElement> product;
 
+    @FindBy(css = "button#react-burger-menu-btn")
+    WebElement hamburgerMenu;
+
+    @FindBy(css = "a#logout_sidebar_link")
+    WebElement logoutButton;
+
+    @FindBy(css = "a.bm-item.menu-item")
+    List <WebElement> menuItem;
+
     // Optional: Add meaningful check/assertion here
     public boolean isTitleVisible() {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(15))
             .until(ExpectedConditions.visibilityOf(title));
 
         System.out.println("Title is visible: " + title.getText());
@@ -83,5 +93,20 @@ public class ProductsPage {
 
     public void goToCart() {
         cartBadge.click();
+    }
+
+    public void logout() {
+        hamburgerMenu.click();
+        // System.out.println(getTexts());
+        logoutButton.click();
+    }
+
+    public List<String> getTexts() {
+        List <String> texts = new ArrayList<>();
+        for (WebElement item : menuItem) {
+            // System.out.println(item.getText());
+            texts.add(item.getText());
+        }
+        return texts;
     }
 }
