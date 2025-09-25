@@ -6,6 +6,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.ArrayList;;
@@ -84,7 +88,15 @@ public class ProductsPage {
         if (product != null && product.size() > 0) {
             System.out.println("First product text: " + product.get(0).getText());
             String firstProductText = product.get(0).getText();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("outputProduct.txt", true))) {
+            writer.write(firstProductText);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
             return firstProductText;
+
         } else {
         System.out.println("No products found.");
         return "";
