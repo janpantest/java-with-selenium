@@ -40,9 +40,9 @@ public class BrnoResults {
             ExpectedConditions.visibilityOf(resultHeader)
             ));
 
-            for (WebElement link : links) {
-                    System.out.println(link.getText());
-                }
+            // for (WebElement link : links) {
+            //         System.out.println(link.getText());
+            //     }
 
         titleText.getText().equals(resultTitle);
         return brnoLogo.isDisplayed();
