@@ -40,7 +40,7 @@ public class BrnoHome {
     @FindBy(css = "div#bno-search")
     WebElement searchContainer;
 
-    @FindBy(css = "a span.bno-link")
+    @FindBy(css = "a.bno-autocomplete__option")
     List<WebElement> autocompleteSuggestion;
 
     
@@ -298,13 +298,15 @@ public class BrnoHome {
         inputField.sendKeys(text);
         confirmButton.isDisplayed();
         confirmButton.click();
+        // clickLink();
     }
 
     public void clickLink() {
-        new WebDriverWait(driver, Duration.ofSeconds(15))
+        new WebDriverWait(driver, Duration.ofSeconds(25))
             .until(ExpectedConditions.visibilityOfAllElements(autocompleteSuggestion));
         for (WebElement suggestion : autocompleteSuggestion) {
             System.out.println("Here we go " + suggestion.getText());
         }
+        autocompleteSuggestion.get(0).click();
     }
 }

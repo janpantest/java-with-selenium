@@ -34,8 +34,11 @@ public class BrnoPay {
     WebElement headerTitle;
 
     public void checkLogo(String title) {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-            .until(ExpectedConditions.visibilityOf(brnoLogo));
+        new WebDriverWait(driver, Duration.ofSeconds(15))
+            .until(ExpectedConditions.and(
+            ExpectedConditions.visibilityOf(brnoLogo),
+            ExpectedConditions.visibilityOf(headerTitle)
+            ));
 
         headerTitle.getText().equals(title);
     }
@@ -66,7 +69,7 @@ public class BrnoPay {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("outputPayments.txt", true))) { // Open file in append mode
             for (WebElement info : infoTexts) {
-                
+
                 String text = info.getText();
 
                 writer.write(formattedDate + " : " + text);
