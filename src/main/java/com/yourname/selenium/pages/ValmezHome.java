@@ -22,6 +22,9 @@ public class ValmezHome {
     }
 
     // Elements
+    @FindBy(css = "h1 strong")
+    WebElement townTitle;
+    
     @FindBy(css = "img#znak")
     WebElement logo;
 
@@ -29,11 +32,15 @@ public class ValmezHome {
     List <WebElement> menuLinks;
 
     public boolean checkLogo() {
-        new WebDriverWait(driver, Duration.ofSeconds(5))  // wait up to 5 seconds
+        new WebDriverWait(driver, Duration.ofSeconds(5))
             .until(ExpectedConditions.visibilityOf(logo));
 
         return logo.isDisplayed();
         }
+
+    public void checkTownTitle(String title) {
+        townTitle.getText().equals(title);
+    }
 
     public void clickMenuLink(String menuLink) {
     //     for (WebElement link : menuLinks) {

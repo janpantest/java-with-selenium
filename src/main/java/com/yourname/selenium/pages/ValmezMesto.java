@@ -25,17 +25,8 @@ public class ValmezMesto {
     @FindBy(css = "li strong a")
     List <WebElement> bodyMenuLinks;
 
-    @FindBy(css = "li strong a")
-    WebElement menuLink;
-
-    @FindBy(css = "button#continue-shopping")
-    WebElement continueShoppingButton;
-
-    @FindBy(css = "button#checkout")
-    WebElement checkoutButton;
-
     public boolean checkHeader(String title) {
-        new WebDriverWait(driver, Duration.ofSeconds(5))  // wait up to 5 seconds
+        new WebDriverWait(driver, Duration.ofSeconds(5))
             .until(ExpectedConditions.visibilityOf(header));
 
         header.getText().equals(title);

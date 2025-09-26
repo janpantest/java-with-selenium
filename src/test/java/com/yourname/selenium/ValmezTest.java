@@ -2,9 +2,9 @@ package com.yourname.selenium;
 
 import com.yourname.selenium.pages.ValmezHome;
 import com.yourname.selenium.pages.ValmezMesto;
+import com.yourname.selenium.pages.ValmezVedeni;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.github.cdimascio.dotenv.Dotenv;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,6 +20,7 @@ public class ValmezTest {
     String username;
     String password;
     String baseUrl;
+    String townTitle;
     String headerTitle;
     String menuLinkMesto;
 
@@ -27,20 +28,15 @@ public class ValmezTest {
     public void setUp() {
         String url = "https://www.valasskemezirici.cz";
 
-        // System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
         WebDriverManager.chromedriver().setup();
 
         // Create a new instance of Chrome driver
         driver = new FirefoxDriver();
-        // driver = new ChromeDriver();
         // driver = new EdgeDriver();
         driver.manage().window().maximize();
         driver.get(url);
 
-        // Dotenv dotenv = Dotenv.load();
-        Dotenv dotenv = Dotenv.configure().load(); 
-
-        baseUrl = dotenv.get("BASE_URL");
+        townTitle = "Valašské Meziříčí";
         headerTitle = "Město a úřad";
         menuLinkMesto = "Vedení města";
     }
@@ -49,13 +45,17 @@ public class ValmezTest {
     public void testLoginWorkflow() {
         ValmezHome valmezHome = new ValmezHome(driver);
         ValmezMesto valmezMesto = new ValmezMesto(driver);
+        ValmezVedeni valmezVedeni = new ValmezVedeni(driver);
 
         assertTrue("Login form should be visible", valmezHome.checkLogo());
+        valmezHome.checkTownTitle(townTitle);
         valmezHome.clickMenuLink(headerTitle);
 
         valmezMesto.checkHeader(headerTitle);
         valmezMesto.clickMenuLink(menuLinkMesto);
 
+        valmezVedeni.getContacts();
+        valmezVedeni.storeContacts();
     }
 
     @After
